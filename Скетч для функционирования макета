@@ -1,0 +1,32 @@
+
+#include <Servo.h>
+int right = 0;  
+int level = 0;  
+int left = 2;
+int level1 = 0;
+int a = 0;
+Servo servo;  
+void setup() {
+  Serial.begin(9600);
+  servo.attach(9);   
+  servo.write(0);   
+}
+void loop() {
+  level = analogRead(A0);
+  level1 = analogRead(A1);
+  Serial.print(level);
+  Serial.print("\t");
+  Serial.print(level1);
+  if (level1 - level > 5) {
+    a--;
+  }
+  if (level - level1 > 5) {
+    a++;
+  }
+  if (a > 160) a = 160;
+  if (a < 10) a = 10;
+  Serial.print("\t\t\t");
+  Serial.println(a);
+  servo.write(a);
+  delay(5);
+}
